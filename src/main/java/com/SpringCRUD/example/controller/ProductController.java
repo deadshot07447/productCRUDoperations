@@ -44,6 +44,19 @@ public class ProductController {
     }
 
 
+    @GetMapping("/products/{quantity}")
+    public List<Product> getProductByQuantity(@PathVariable int quantity)
+    {
+        return productService.getProductByQuantity(quantity);
+    }
+
+
+    @GetMapping("/count/{name}")
+    public int getQuantityCount(@PathVariable String name){
+
+        return productService.getSumOfQuantitiesByProductName(name);
+    }
+
     @PutMapping("/update")
     public Product updateProduct(@RequestBody Product product){
 

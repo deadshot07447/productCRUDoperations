@@ -4,7 +4,6 @@ import com.SpringCRUD.example.entity.Product;
 import com.SpringCRUD.example.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -40,6 +39,12 @@ public class ProductService {
         return productRepository.findByName(name);
     }
 
+    public List<Product> getProductByQuantity(int quantity) {
+
+        return productRepository.findByQuantity(quantity);
+    }
+
+
     public String deleteProduct(int id){
 
         productRepository.deleteById(id);
@@ -54,7 +59,18 @@ public class ProductService {
         return productRepository.save(existingProduct);
     }
 
-
+    public int getSumOfQuantitiesByProductName(String name) {
+        List<Product> products = productRepository.findByName(name);
+        if (products.isEmpty()) {
+            return 0; // No product found
+        } else {
+            int sum = 0;
+            for (Product product : products) {
+                sum += product.getQuantity();
+            }
+            return sum;
+        }
+    }
 
 
 
